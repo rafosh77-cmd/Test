@@ -1,3 +1,7 @@
+// ===============================================
+//  MULTILINGUAL TRANSLATION SYSTEM
+// ===============================================
+
 const translations = {
     en: {
         // NAVIGATION
@@ -43,7 +47,13 @@ const translations = {
         // CONTACT
         contact_title: "Contact",
         contact_email: "Email: info@azerbaijanculturalcenter.org",
-        contact_address: "Address: 123 Culture St, Baku, Azerbaijan"
+        contact_address: "Address: 123 Culture St, Baku, Azerbaijan",
+
+        // IMAGE DESCRIPTIONS
+        img_instruments_desc: "Traditional Azerbaijani musical instruments displayed at the State Museum of Musical Culture.",
+        img_theatre_desc: "The Azerbaijan State Musical Theatre, a major venue for music and performing arts.",
+        img_baku_desc: "A scenic view of Baku, showcasing its blend of modern and historical architecture.",
+        img_sheki_desc: "The historic city of Sheki, known for its ancient palaces and unique craftsmanship."
     },
 
     az: {
@@ -83,7 +93,12 @@ const translations = {
 
         contact_title: "Əlaqə",
         contact_email: "Email: info@azerbaijanculturalcenter.org",
-        contact_address: "Ünvan: 123 Mədəniyyət küçəsi, Bakı, Azərbaycan"
+        contact_address: "Ünvan: 123 Mədəniyyət küçəsi, Bakı, Azərbaycan",
+
+        img_instruments_desc: "Azərbaycan Dövlət Musiqi Mədəniyyəti Muzeyində nümayiş olunan ənənəvi musiqi alətləri.",
+        img_theatre_desc: "Azərbaycan Dövlət Musiqili Teatrı – musiqi və səhnə sənətinin əsas mərkəzlərindən biri.",
+        img_baku_desc: "Müasir və tarixi memarlığın vəhdətini əks etdirən Bakı mənzərəsi.",
+        img_sheki_desc: "Qədim sarayları və özünəməxsus sənətkarlığı ilə məşhur olan tarixi Şəki şəhəri."
     },
 
     fr: {
@@ -105,7 +120,7 @@ const translations = {
         music_title: "Musique & Arts",
         music_text: "Découvrez la musique traditionnelle, les instruments et les formes d'art de l'Azerbaïdjan.",
         music_card1_title: "Instruments Traditionnels",
-        music_card1_text: "La photo montre une collection d'instruments de musique traditionnels d'Azerbaïdjan, exposés au Musée d'État de la Culture Musicale.",
+        music_card1_text: "Instruments traditionnels exposés au Musée d'État de la Culture Musicale.",
         music_card2_title: "Théâtre Musical d'État",
         music_card2_text: "Centre principal pour les représentations de musique et théâtre azerbaïdjanais.",
 
@@ -123,7 +138,12 @@ const translations = {
 
         contact_title: "Contact",
         contact_email: "Email: info@azerbaijanculturalcenter.org",
-        contact_address: "Adresse: 123 Rue de la Culture, Bakou, Azerbaïdjan"
+        contact_address: "Adresse: 123 Rue de la Culture, Bakou, Azerbaïdjan",
+
+        img_instruments_desc: "Instruments de musique traditionnels exposés au Musée d'État.",
+        img_theatre_desc: "Le Théâtre Musical d'État d'Azerbaïdjan.",
+        img_baku_desc: "Vue pittoresque de Bakou.",
+        img_sheki_desc: "La ville historique de Chaki."
     },
 
     ru: {
@@ -145,9 +165,9 @@ const translations = {
         music_title: "Музыка & Искусство",
         music_text: "Узнайте о традиционной азербайджанской музыке, инструментах и формах искусства.",
         music_card1_title: "Традиционные Инструменты",
-        music_card1_text: "На изображении — коллекция традиционных азербайджанских музыкальных инструментов в Государственном музее музыкальной культуры.",
-        music_card2_title: "Государственный Музыкальный Театр Азербайджана",
-        music_card2_text: "Центр для выступлений азербайджанской музыки и театра.",
+        music_card1_text: "Коллекция традиционных инструментов в Государственном музее музыкальной культуры.",
+        music_card2_title: "Государственный Музыкальный Театр",
+        music_card2_text: "Центр музыкальных и театральных искусств.",
 
         travel_title: "Путеводитель",
         travel_text: "Исследуйте красивые пейзажи, города и культурные достопримечательности Азербайджана.",
@@ -163,18 +183,63 @@ const translations = {
 
         contact_title: "Контакт",
         contact_email: "Email: info@azerbaijanculturalcenter.org",
-        contact_address: "Адрес: 123 Улица Культуры, Баку, Азербайджан"
+        contact_address: "Адрес: 123 Улица Культуры, Баку, Азербайджан",
+
+        img_instruments_desc: "Традиционные музыкальные инструменты Азербайджана.",
+        img_theatre_desc: "Государственный Музыкальный Театр Азербайджана.",
+        img_baku_desc: "Вид на город Баку.",
+        img_sheki_desc: "Исторический город Шеки."
     }
 };
 
-// Language switch functionality
-const languageSelect = document.getElementById('language-switch');
-languageSelect.addEventListener('change', () => {
+// ===============================================
+//  LANGUAGE SWITCHER
+// ===============================================
+
+const languageSelect = document.getElementById("language-switch");
+
+languageSelect.addEventListener("change", () => {
     const lang = languageSelect.value;
-    document.querySelectorAll('[data-key]').forEach(el => {
-        const key = el.getAttribute('data-key');
-        if (translations[lang][key]) {
+
+    document.querySelectorAll("[data-key]").forEach(el => {
+        const key = el.getAttribute("data-key");
+        if (translations[lang] && translations[lang][key]) {
             el.textContent = translations[lang][key];
+        }
+    });
+});
+
+// ===============================================
+//  AUTO-LOAD DEFAULT LANGUAGE
+// ===============================================
+
+window.addEventListener("DOMContentLoaded", () => {
+    const defaultLang = "en";
+    languageSelect.value = defaultLang;
+
+    document.querySelectorAll("[data-key]").forEach(el => {
+        const key = el.getAttribute("data-key");
+        if (translations[defaultLang][key]) {
+            el.textContent = translations[defaultLang][key];
+        }
+    });
+});
+
+// ===============================================
+//  SECTION SWITCHING LOGIC
+// ===============================================
+
+document.querySelectorAll(".tab").forEach(tab => {
+    tab.addEventListener("click", () => {
+        const targetId = tab.getAttribute("data-target");
+
+        document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
+        document.querySelectorAll(".section").forEach(s => s.classList.remove("active"));
+
+        tab.classList.add("active");
+        const targetSection = document.getElementById(targetId);
+        if (targetSection) {
+            targetSection.classList.add("active");
         }
     });
 });
