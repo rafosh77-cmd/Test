@@ -4,71 +4,104 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Modern Gradient | Premium Experience</title>
-    <meta name="description" content="A sleek, modern website with grey gradients and glassmorphism.">
+    <title data-key="hero_title">Azerbaijan Cultural Center</title>
+
+    <meta name="description" content="Azerbaijan Cultural Center of the Pacific Northwest">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Outfit:wght@300;400;600;800&display=swap"
         rel="stylesheet">
+
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
+
+    <!-- NAVBAR -->
     <nav class="navbar">
         <div class="nav-container">
-            <div class="logo">Azerbaijan <span class="gray-text">cultural</span></div>
+            <div class="logo">
+                <span data-key="nav_home">Azerbaijan Cultural Center</span>
+            </div>
+
             <ul class="nav-tabs">
-                <li class="tab active" data-target="home">Home</li>
-                <li class="tab" data-target="view">View</li>
-                <li class="tab" data-target="contact">Contact Us</li>
+                <li class="tab active" data-target="home" data-key="nav_home"></li>
+                <li class="tab" data-target="view" data-key="nav_gallery"></li>
+                <li class="tab" data-target="contact" data-key="nav_contact"></li>
             </ul>
+
+            <!-- LANGUAGE SWITCHER -->
+            <select id="language-switch" class="language-switch">
+                <option value="en">EN</option>
+                <option value="az">AZ</option>
+                <option value="fr">FR</option>
+                <option value="ru">RU</option>
+            </select>
         </div>
     </nav>
 
     <main class="content">
-        <!-- Home Section -->
+
+        <!-- HOME SECTION -->
         <section id="home" class="section active">
             <div class="glass-card hero-card">
                 <div class="image-hover-wrapper">
-                    <img src="cultural-image.png" alt="Azerbaijan Culture" class="cultural-img">
+                    <img src="cultural-image.png" alt="" class="cultural-img">
                 </div>
-                <h1 class="gradient-text">Azerbaijan cultural center of the pacific northwest</h1>
+
+                <h1 class="gradient-text" data-key="hero_title"></h1>
+                <p data-key="hero_text"></p>
             </div>
         </section>
 
-        <!-- View Section -->
+        <!-- VIEW SECTION -->
         <section id="view" class="section">
             <div class="glass-card view-card">
-                <h2>Your <span class="gradient-text">Preview</span></h2>
+                <h2><span class="gradient-text" data-key="nav_gallery"></span></h2>
+
                 <div id="preview-container" class="preview-empty">
-                    <p>No image uploaded yet. Head over to Home to select one!</p>
+                    <p data-key="music_card1_text"></p>
+                </div>
+
+                <!-- Example image descriptions -->
+                <div class="image-description">
+                    <p data-key="img_instruments_desc"></p>
+                    <p data-key="img_theatre_desc"></p>
+                    <p data-key="img_baku_desc"></p>
+                    <p data-key="img_sheki_desc"></p>
                 </div>
             </div>
         </section>
 
-        <!-- Contact Section -->
+        <!-- CONTACT SECTION -->
         <section id="contact" class="section">
             <div class="glass-card contact-card">
-                <h2>Contact <span class="gradient-text">Us</span></h2>
+                <h2 data-key="contact_title"></h2>
+
                 <form class="contact-form" action="https://formspree.io/f/xkoooqbv" method="POST">
                     <div class="form-group">
                         <input type="text" name="name" placeholder="Name" required>
                     </div>
+
                     <div class="form-group">
                         <input type="email" name="email" placeholder="Your email" required>
                     </div>
+
                     <div class="form-group">
                         <textarea name="message" placeholder="Your message" rows="4" required></textarea>
                     </div>
-                    <button type="submit" class="submit-btn">Send Message</button>
+
+                    <button type="submit" class="submit-btn" data-key="hero_btn"></button>
                 </form>
             </div>
         </section>
+
     </main>
 
     <footer class="footer">
-        <p>&copy; 2026 Modern Gradient Site. Crafted for Visual Excellence.</p>
+        <p>&copy; 2026 <span data-key="nav_home"></span></p>
     </footer>
 
     <script src="script.js"></script>
