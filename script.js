@@ -1,63 +1,180 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const tabs = document.querySelectorAll('.tab');
-    const sections = document.querySelectorAll('.section');
+const translations = {
+    en: {
+        // NAVIGATION
+        nav_home: "Home",
+        nav_about: "About",
+        nav_music: "Music & Arts",
+        nav_travel: "Travel",
+        nav_events: "Events",
+        nav_gallery: "Gallery",
+        nav_contact: "Contact",
 
-    // Tab Switching Logic
-    tabs.forEach(tab => {
-        tab.addEventListener('click', () => {
-            const target = tab.getAttribute('data-target');
+        // HERO
+        hero_title: "Welcome to the Azerbaijan Cultural Center",
+        hero_text: "Discover the rich heritage of Azerbaijani culture, music, art, and travel.",
+        hero_btn: "Learn More",
 
-            // Update tabs
-            tabs.forEach(t => t.classList.remove('active'));
-            tab.classList.add('active');
+        // ABOUT
+        about_title: "About Azerbaijan",
+        about_text: "The Azerbaijan Cultural Center is a non-profit organization dedicated to promoting Azerbaijani culture, art, music, and travel experiences.",
 
-            // Update sections
-            sections.forEach(s => s.classList.remove('active'));
-            document.getElementById(target).classList.add('active');
-        });
-    });
+        // MUSIC & ARTS
+        music_title: "Music & Arts",
+        music_text: "Learn about traditional Azerbaijani music, instruments, and art forms.",
+        music_card1_title: "Traditional Instruments",
+        music_card1_text: "The image displays a collection of traditional Azerbaijani musical instruments, housed in the Azerbaijan State Museum of Musical Culture.",
+        music_card2_title: "Azerbaijan State Musical Theatre",
+        music_card2_text: "A central hub for performances showcasing Azerbaijani music and theatrical arts.",
 
-    // 3D Tilt Effect for the Image
-    const culturalImg = document.querySelector('.cultural-img');
-    if (culturalImg) {
-        const wrapper = culturalImg.closest('.image-hover-wrapper');
+        // TRAVEL
+        travel_title: "Travel Guide",
+        travel_text: "Explore Azerbaijan's beautiful landscapes, cities, and cultural landmarks.",
+        travel_card1_title: "Baku",
+        travel_card1_text: "Capital city with rich history.",
+        travel_card2_title: "Sheki",
+        travel_card2_text: "Historic town with beautiful architecture.",
 
-        wrapper.addEventListener('mousemove', (e) => {
-            const rect = culturalImg.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
+        // EVENTS
+        events_title: "Events",
+        events_text: "Upcoming events and cultural programs.",
+        events_item1: "Nov 20 – Azerbaijani Music Night",
+        events_item2: "Dec 10 – Art & Carpet Exhibition",
 
-            const centerX = rect.width / 2;
-            const centerY = rect.height / 2;
+        // CONTACT
+        contact_title: "Contact",
+        contact_email: "Email: info@azerbaijanculturalcenter.org",
+        contact_address: "Address: 123 Culture St, Baku, Azerbaijan"
+    },
 
-            const rotateX = (centerY - y) / 15; // Inverted for more natural lift
-            const rotateY = (x - centerX) / 15;
+    az: {
+        nav_home: "Ana səhifə",
+        nav_about: "Haqqımızda",
+        nav_music: "Musiqi & İncəsənət",
+        nav_travel: "Səyahət",
+        nav_events: "Tədbirlər",
+        nav_gallery: "Qalereya",
+        nav_contact: "Əlaqə",
 
-            // Adding a slight translation to "move with the mouse"
-            const moveX = (x - centerX) / 20;
-            const moveY = (y - centerY) / 20;
+        hero_title: "Azərbaycan Mədəniyyət Mərkəzinə Xoş Gəlmisiniz",
+        hero_text: "Azərbaycan mədəniyyətinin, musiqisinin, incəsənətinin və səyahət imkanlarının zəngin irsini kəşf edin.",
+        hero_btn: "Daha Ətraflı",
 
-            culturalImg.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translate3d(${moveX}px, ${moveY}px, 50px) scale(1.02)`;
-            culturalImg.style.transition = 'transform 0.05s linear, box-shadow 0.3s ease';
-        });
+        about_title: "Azərbaycan Haqqında",
+        about_text: "Azərbaycan Mədəniyyət Mərkəzi Azərbaycan mədəniyyətini, incəsənətini, musiqisini və səyahət imkanlarını tanıtmağa həsr olunmuş qeyri-kommersiya təşkilatıdır.",
 
-        wrapper.addEventListener('mouseleave', () => {
-            culturalImg.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) translate3d(0, 0, 0) scale(1)`;
-            culturalImg.style.transition = 'transform 0.5s ease, box-shadow 0.3s ease';
-        });
+        music_title: "Musiqi & İncəsənət",
+        music_text: "Azərbaycan musiqi ənənələrini, alətlərini və incəsənət növlərini öyrənin.",
+        music_card1_title: "Ənənəvi Alətlər",
+        music_card1_text: "Şəkildə Azərbaycanın ənənəvi musiqi alətləri, Azərbaycan Dövlət Musiqi Mədəniyyəti Muzeyində nümayiş olunur.",
+        music_card2_title: "Azərbaycan Dövlət Musiqi Teatrı",
+        music_card2_text: "Azərbaycan musiqisi və teatr sənətini nümayiş etdirən mərkəzi məkandır.",
+
+        travel_title: "Səyahət Bələdçisi",
+        travel_text: "Azərbaycanın gözəl mənzərələrini, şəhərlərini və mədəni abidələrini kəşf edin.",
+        travel_card1_title: "Bakı",
+        travel_card1_text: "Tarixi zəngin paytaxt şəhəri.",
+        travel_card2_title: "Şəki",
+        travel_card2_text: "Gözəl memarlığa malik tarixi şəhər.",
+
+        events_title: "Tədbirlər",
+        events_text: "Gələcək tədbirlər və mədəni proqramlar.",
+        events_item1: "20 Noy – Azərbaycan Musiqi Gecəsi",
+        events_item2: "10 Dek – İncəsənət və Xalça Sərgisi",
+
+        contact_title: "Əlaqə",
+        contact_email: "Email: info@azerbaijanculturalcenter.org",
+        contact_address: "Ünvan: 123 Mədəniyyət küçəsi, Bakı, Azərbaycan"
+    },
+
+    fr: {
+        nav_home: "Accueil",
+        nav_about: "À propos",
+        nav_music: "Musique & Arts",
+        nav_travel: "Voyage",
+        nav_events: "Événements",
+        nav_gallery: "Galerie",
+        nav_contact: "Contact",
+
+        hero_title: "Bienvenue au Centre Culturel d'Azerbaïdjan",
+        hero_text: "Découvrez le riche patrimoine de la culture, de la musique, de l'art et du voyage azerbaïdjanais.",
+        hero_btn: "En savoir plus",
+
+        about_title: "À propos de l'Azerbaïdjan",
+        about_text: "Le Centre Culturel d'Azerbaïdjan est une organisation à but non lucratif dédiée à la promotion de la culture, de l'art, de la musique et des expériences de voyage azerbaïdjanaises.",
+
+        music_title: "Musique & Arts",
+        music_text: "Découvrez la musique traditionnelle, les instruments et les formes d'art de l'Azerbaïdjan.",
+        music_card1_title: "Instruments Traditionnels",
+        music_card1_text: "La photo montre une collection d'instruments de musique traditionnels d'Azerbaïdjan, exposés au Musée d'État de la Culture Musicale.",
+        music_card2_title: "Théâtre Musical d'État",
+        music_card2_text: "Centre principal pour les représentations de musique et théâtre azerbaïdjanais.",
+
+        travel_title: "Guide de Voyage",
+        travel_text: "Explorez les magnifiques paysages, villes et sites culturels d'Azerbaïdjan.",
+        travel_card1_title: "Bakou",
+        travel_card1_text: "Capitale avec une riche histoire.",
+        travel_card2_title: "Chaki",
+        travel_card2_text: "Ville historique avec une belle architecture.",
+
+        events_title: "Événements",
+        events_text: "Événements et programmes culturels à venir.",
+        events_item1: "20 Nov – Nuit de musique azerbaïdjanaise",
+        events_item2: "10 Déc – Exposition d'art & tapis",
+
+        contact_title: "Contact",
+        contact_email: "Email: info@azerbaijanculturalcenter.org",
+        contact_address: "Adresse: 123 Rue de la Culture, Bakou, Azerbaïdjan"
+    },
+
+    ru: {
+        nav_home: "Главная",
+        nav_about: "О нас",
+        nav_music: "Музыка & Искусство",
+        nav_travel: "Путешествия",
+        nav_events: "События",
+        nav_gallery: "Галерея",
+        nav_contact: "Контакт",
+
+        hero_title: "Добро пожаловать в Азербайджанский культурный центр",
+        hero_text: "Откройте для себя богатое наследие азербайджанской культуры, музыки, искусства и путешествий.",
+        hero_btn: "Узнать больше",
+
+        about_title: "Об Азербайджане",
+        about_text: "Азербайджанский культурный центр — некоммерческая организация, посвященная продвижению азербайджанской культуры, искусства, музыки и путешествий.",
+
+        music_title: "Музыка & Искусство",
+        music_text: "Узнайте о традиционной азербайджанской музыке, инструментах и формах искусства.",
+        music_card1_title: "Традиционные Инструменты",
+        music_card1_text: "На изображении — коллекция традиционных азербайджанских музыкальных инструментов в Государственном музее музыкальной культуры.",
+        music_card2_title: "Государственный Музыкальный Театр Азербайджана",
+        music_card2_text: "Центр для выступлений азербайджанской музыки и театра.",
+
+        travel_title: "Путеводитель",
+        travel_text: "Исследуйте красивые пейзажи, города и культурные достопримечательности Азербайджана.",
+        travel_card1_title: "Баку",
+        travel_card1_text: "Столица с богатой историей.",
+        travel_card2_title: "Шеки",
+        travel_card2_text: "Исторический город с красивой архитектурой.",
+
+        events_title: "События",
+        events_text: "Предстоящие события и культурные программы.",
+        events_item1: "20 Ноя – Вечер азербайджанской музыки",
+        events_item2: "10 Дек – Выставка искусства и ковров",
+
+        contact_title: "Контакт",
+        contact_email: "Email: info@azerbaijanculturalcenter.org",
+        contact_address: "Адрес: 123 Улица Культуры, Баку, Азербайджан"
     }
+};
 
-    // Existing tilt for preview-text - REMOVED as image is gone
-
-    // Simple micro-interaction for form inputs
-    const inputs = document.querySelectorAll('input, textarea');
-    inputs.forEach(input => {
-        input.addEventListener('focus', () => {
-            input.parentElement.closest('.glass-card').style.transform = 'scale(1.02)';
-            input.parentElement.closest('.glass-card').style.transition = '0.3s ease';
-        });
-        input.addEventListener('blur', () => {
-            input.parentElement.closest('.glass-card').style.transform = 'scale(1)';
-        });
+// Language switch functionality
+const languageSelect = document.getElementById('language-switch');
+languageSelect.addEventListener('change', () => {
+    const lang = languageSelect.value;
+    document.querySelectorAll('[data-key]').forEach(el => {
+        const key = el.getAttribute('data-key');
+        if (translations[lang][key]) {
+            el.textContent = translations[lang][key];
+        }
     });
 });
